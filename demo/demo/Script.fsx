@@ -25,15 +25,21 @@ type MovieBasics =
     }
 let getTop100() =
     let top = Netflix.GetSample()
-    for it in top.Channel.Items do
+    [ for it in top.Channel.Items -> 
         let m = regexThumb.Match(it.Description)
         let descr, thumb = 
             if m.Success then
-                m.Groups.[2].Value,
-                Some(m.Groups.[1].Value)
+               m.Groups.[2].Value,
+               Some(m.Groups.[1].Value)
             else it.Description, None
-        printfn "%s (%A)\n%s\n" it.Title thumb descr  
+        {   Title = it.Title
+            Summary = descr
+            Thumbnail = thumb } ]
+
+            
+          
 
     
 
 
+// printfn "%s (%A)\n%s\n" it.Title thumb descr
