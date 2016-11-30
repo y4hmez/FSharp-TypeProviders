@@ -1,9 +1,5 @@
-#r @"..\..\packages\FSharp.Data\lib\net40\FSharp.Data.dll"
-#r "System.Xml.Linq"
-
-#load "demo.fs"
-
-open demo
+//modules are compiled as static class
+module MovieNews.Data.NYTReview
 open FSharp.Data
 
 type NYT = JsonProvider<"http://api.nytimes.com/svc/movies/v2/reviews/search.json?api-key=069f02d3adcd4d59a739c071aaa16a10">
@@ -28,16 +24,4 @@ let tryPickReview name =
         {  Published = r.PublicationDate
            Summary = r.SummaryShort
            Link = r.Link.Url
-           LinkText = r.Link.SuggestedLinkText } )         
-        
-
-    // match reviewOpt with
-    //     | Some r -> 
-    //         Some {  Published = r.PublicationDate
-    //                 Summary = r.SummaryShort
-    //                 Link = r.Link.Url
-    //                 LinkText = r.Link.SuggestedLinkText }         
-    //     | None -> None   
-
-
-// printfn "%s %s %s %s " (r.PublicationDate.ToString()) r.SummaryShort r.Link.Url r.Link.SuggestedLinkText
+           LinkText = r.Link.SuggestedLinkText } )      

@@ -1,9 +1,6 @@
-#r @"..\..\packages\FSharp.Data\lib\net40\FSharp.Data.dll"
-#r "System.Xml.Linq"
 
-#load "demo.fs"
-
-open demo
+//modules are compiled as static class
+module MovieNews.Data.Netflix
 open FSharp.Data
 open System.Text.RegularExpressions
 
@@ -17,12 +14,6 @@ let regexThumb = Regex("<a[^>]*><img src=\"([^\"]*)\".*>(.*)")
 
 type Netflix = XmlProvider<"http://dvd.netflix.com/Top100RSS">
 
-type MovieBasics = 
-    {
-        Title : string
-        Summary : string
-        Thumbnail : option<string>
-    }
 let getTop100() =
     let top = Netflix.GetSample()
     [ for it in top.Channel.Items -> 
@@ -35,11 +26,3 @@ let getTop100() =
         {   Title = it.Title
             Summary = descr
             Thumbnail = thumb } ]
-
-            
-          
-
-    
-
-
-// printfn "%s (%A)\n%s\n" it.Title thumb descr
